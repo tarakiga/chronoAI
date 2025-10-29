@@ -21,7 +21,7 @@ ChronoAI is a personalized, AI-powered desktop assistant designed to integrate w
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/chronoai.git
+git clone https://github.com/tarakiga/chronoAI.git
 cd chronoai
 
 # Create and activate virtual environment with uv
@@ -35,7 +35,7 @@ uv sync
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/chronoai.git
+git clone https://github.com/tarakiga/chronoAI.git
 cd chronoai
 
 # Create virtual environment
@@ -180,7 +180,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions:
 
-1. Check the [Issues](https://github.com/yourusername/chronoai/issues) page
+1. Check the [Issues](https://github.com/tarakiga/chronoAI/issues) page
 2. Create a new issue with detailed information
 3. Join our community discussions
 
