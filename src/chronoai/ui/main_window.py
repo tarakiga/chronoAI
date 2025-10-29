@@ -46,6 +46,9 @@ class MainWindow(QMainWindow):
         app_title = "ChronoAI"
         self.setWindowTitle(app_title)
         
+        # Calendar connection section
+        self.setup_calendar_connection(main_layout)
+        
         # Status bar
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
@@ -63,6 +66,121 @@ class MainWindow(QMainWindow):
         self.update_status()
         
         logger.info("UI initialized successfully")
+    
+    def setup_calendar_connection(self, parent_layout):
+        """Setup calendar connection section in the UI"""
+        from chronoai.calendar.manager import CalendarManager
+        
+        # Create calendar connection widget
+        calendar_widget = QWidget()
+        calendar_layout = QVBoxLayout(calendar_widget)
+        
+        # Title
+        title = self.create_label("Calendar Connections", font_size=14, bold=True)
+        calendar_layout.addWidget(title)
+        
+        # Google Calendar section
+        google_section = self.create_calendar_section("Google Calendar", "google")
+        calendar_layout.addWidget(google_section)
+        
+        # Zoho Calendar section
+        zoho_section = self.create_calendar_section("Zoho Calendar", "zoho")
+        calendar_layout.addWidget(zoho_section)
+        
+        # Add stretch to push everything to the top
+        calendar_layout.addStretch()
+        
+        # Add to parent layout
+        parent_layout.addWidget(calendar_widget)
+    
+    def create_calendar_section(self, provider_name, provider_key):
+        """Create a calendar connection section"""
+        section_widget = QWidget()
+        section_layout = QVBoxLayout(section_widget)
+        
+        # Provider label
+        label = self.create_label(f"{provider_name}:", bold=True)
+        section_layout.addWidget(label)
+        
+        # Status label
+        status_label = self.create_label("Not connected")
+        section_layout.addWidget(status_label)
+        
+        # Connect button
+        connect_button = self.create_button("Connect", lambda: self.connect_calendar(provider_key, status_label))
+        section_layout.addWidget(connect_button)
+        
+        # Store references for later use
+        if not hasattr(self, 'calendar_sections'):
+            self.calendar_sections = {}
+        self.calendar_sections[provider_key] = {
+            'status_label': status_label,
+            'connect_button': connect_button
+        }
+        
+        return section_widget
+    
+    def create_label(self, text, font_size=10, bold=False):
+        """Create a label with styling"""
+        from PyQt6.QtWidgets import QLabel
+        label = QLabel(text)
+        if bold:
+            label.setStyleSheet("font-weight: bold;")
+        if font_size > 10:
+            label.setStyleSheet(f"font-size: {font_size}px; font-weight: bold;")
+        return label
+    
+    def create_button(self, text, click_handler):
+        """Create a button with click handler"""
+        from PyQt6.QtWidgets import QPushButton
+        button = QPushButton(text)
+        button.clicked.connect(click_handler)
+        return button
+    
+    def connect_calendar(self, provider, status_label):
+        """Handle calendar connection"""
+        try:
+            from chronoai.calendar.manager import CalendarManager
+            import os
+            from dotenv import load_dotenv
+            
+            # Load environment variables
+            load_dotenv()
+            
+            # Get credentials
+            if provider == "google":
+                client_id = os.getenv('GOOGLE_CLIENT_ID')
+                client_secret = os.getenv('GOOGLE_CLIENT_SECRET')
+            elif provider == "zoho":
+                client_id = os.getenv('ZHOHO_CLIENT_ID')
+                client_secret = os.getenv('ZHOHO_CLIENT_SECRET')
+            else:
+                raise ValueError(f"Unknown provider: {provider}")
+            
+            if not client_id or not client_secret:
+                status_label.setText("Missing credentials")
+                return
+            
+            # Create calendar manager and connect
+            calendar_manager = CalendarManager()
+            credentials = {
+                'client_id': client_id,
+                'client_secret': client_secret
+            }
+            
+            if provider == "google":
+                calendar_manager.connect_calendar('google', credentials)
+                status_label.setText("Connected to Google Calendar")
+            elif provider == "zoho":
+                calendar_manager.connect_calendar('zoho', credentials)
+                status_label.setText("Connected to Zoho Calendar")
+            
+            # Trigger a manual sync
+            self.scheduler_service.sync_calendars()
+            
+        except Exception as e:
+            logger.error(f"Failed to connect to {provider} calendar: {e}")
+            status_label.setText(f"Connection failed: {str(e)}")
     
     def setup_system_tray(self):
         """Setup system tray icon and menu"""
