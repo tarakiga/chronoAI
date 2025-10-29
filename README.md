@@ -19,7 +19,7 @@ ChronoAI is a personalized, AI-powered desktop assistant designed to integrate w
 
 ### Install with uv (Recommended)
 
-```bash
+```powershell
 # Clone the repository
 git clone https://github.com/tarakiga/chronoAI.git
 cd chronoai
@@ -27,13 +27,16 @@ cd chronoai
 # Create and activate virtual environment with uv
 uv venv
 
+# If a virtual environment already exists, use:
+uv venv --clear
+
 # Install dependencies
 uv sync
 ```
 
 ### Install with pip
 
-```bash
+```powershell
 # Clone the repository
 git clone https://github.com/tarakiga/chronoAI.git
 cd chronoai
@@ -41,11 +44,12 @@ cd chronoai
 # Create virtual environment
 python -m venv venv
 
+# If a virtual environment already exists, use:
+python -m venv --clear venv
+
 # Activate virtual environment
 # Windows
 venv\Scripts\activate
-# macOS/Linux
-source venv/bin/activate
 
 # Install dependencies
 pip install -e .
@@ -188,9 +192,12 @@ ZHOHO_CLIENT_SECRET=your_zoho_client_secret
 
 ### Setup Development Environment
 
-```bash
+```powershell
 # Install development dependencies
 uv sync --dev
+
+# If you need to recreate the virtual environment:
+$env:UV_VENV_CLEAR=1; uv sync --dev
 
 # Run tests
 uv run pytest
