@@ -111,6 +111,79 @@ ZHOHO_CLIENT_ID=your_zoho_client_id
 ZHOHO_CLIENT_SECRET=your_zoho_client_secret
 ```
 
+### Obtaining API Keys
+
+#### Google Calendar API Keys
+
+1. **Go to the Google Cloud Console**
+
+   - Visit [https://console.cloud.google.com/](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+
+2. **Enable the Google Calendar API**
+
+   - Navigate to "APIs & Services" > "Library"
+   - Search for "Google Calendar API" and click "Enable"
+
+3. **Configure OAuth Consent Screen**
+
+   - Navigate to "APIs & Services" > "OAuth consent screen"
+   - Choose "External" user type and click "Create"
+   - Fill in required information:
+     - App name: "ChronoAI"
+     - User support email: Your email
+     - Developer contact information: Your email
+   - Click "Save and Continue"
+   - On "Scopes" page, click "Add or Remove Scopes"
+   - Search for and select "Google Calendar API"
+     - Scope: `.../auth/calendar.readonly`
+   - Click "Update", then "Save and Continue"
+   - On "Test users" page, click "Add Users"
+   - Add your Google account email as a test user
+   - Click "Save and Continue"
+
+4. **Create OAuth 2.0 Credentials**
+
+   - Navigate to "APIs & Services" > "Credentials"
+   - Click "+ CREATE CREDENTIALS" > "OAuth client ID"
+   - Application type: "Desktop app"
+   - Name: "ChronoAI Desktop Client"
+   - Click "Create"
+   - Copy the "Client ID" and "Client Secret" values
+
+5. **Download Credentials File (Optional)**
+   - You can download the credentials as a JSON file
+   - Save it as `credentials_google.json` in your project root
+
+#### Zoho Calendar API Keys
+
+1. **Go to Zoho Developer Console**
+
+   - Visit [https://api.zoho.com/](https://api.zoho.com/)
+   - Sign in with your Zoho account
+
+2. **Create a New Client**
+
+   - Click "CREATE NEW CLIENT"
+   - Fill in the details:
+     - Client Name: "ChronoAI"
+     - Client Description: "Desktop calendar assistant"
+     - Homepage URL: `http://localhost`
+     - Authorization Grant Type: "Authorization Code"
+     - Redirect URI: `http://localhost`
+   - Click "CREATE"
+
+3. **Note Down Credentials**
+
+   - Copy the "Client ID" and "Client Secret" values
+   - These will be used in your `.env` file
+
+4. **Configure API Scope**
+   - In your Zoho Developer Console, navigate to your client
+   - Under "OAuth Settings", ensure you have the necessary scopes:
+     - `ZohoCalendar.events.READ`
+     - `ZohoCalendar.settings.READ`
+
 ## Development
 
 ### Setup Development Environment
