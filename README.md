@@ -4,6 +4,8 @@
 ![Python](https://img.shields.io/badge/Python-3.9+-brightgreen)
 ![Framework](https://img.shields.io/badge/Framework-PyQt5-orange)
 
+> **Project Retrospective:** Read the [Post-Mortem for v1.0](./POST_MORTEM_2025-10-30.md) to learn about the project's development journey, successes, and lessons learned.
+
 ChronoAI is a personalized, AI-powered desktop assistant that integrates with your Google and Zoho calendars. It provides timely, engaging, and interactive voice reminders for your upcoming events, moving beyond standard, easily-ignored notifications.
 
 ---
