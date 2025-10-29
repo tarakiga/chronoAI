@@ -32,3 +32,7 @@ def setup_logging():
     logger.info(f"Logging initialized. Log file: {log_file}")
     
     return logging.getLogger("chronoai")
+
+def get_logger(name: str = "chronoai"):
+    """Get a logger instance with the specified name"""
+    return logging.getLogger(name)
