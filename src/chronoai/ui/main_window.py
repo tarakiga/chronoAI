@@ -4,11 +4,11 @@ Main application window for ChronoAI
 
 import logging
 from PyQt6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
-    QSystemTrayIcon, QMenu, QAction, QStatusBar
+    QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
+    QSystemTrayIcon, QMenu, QStatusBar
 )
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtGui import QIcon, QAction, QPixmap
 
 from chronoai.utils.logger import get_logger
 
