@@ -57,7 +57,7 @@ class SchedulerService:
             self.events = self.calendar_manager.get_all_events()
             
             # Clear existing notification jobs
-            self.scheduler.remove_jobs('notification')
+            self.scheduler.remove_job('notification')
             
             # Schedule notifications for each event
             for event in self.events:

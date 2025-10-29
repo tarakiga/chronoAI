@@ -59,6 +59,9 @@ class MainWindow(QMainWindow):
         self.status_timer.timeout.connect(self.update_status)
         self.status_timer.start(30000)  # Update every 30 seconds
         
+        # Initial status update
+        self.update_status()
+        
         logger.info("UI initialized successfully")
     
     def setup_system_tray(self):
